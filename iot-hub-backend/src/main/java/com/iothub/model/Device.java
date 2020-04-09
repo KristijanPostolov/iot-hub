@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,8 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "device")
 public class Device {
@@ -28,6 +32,10 @@ public class Device {
 
   @Column(name = "secret_key", unique = true)
   private String secretKey;
+
+  @Column
+  @Enumerated(value = EnumType.STRING)
+  private DeviceStatus status;
 
   @ManyToOne
   @JoinColumn(name = "account_id")

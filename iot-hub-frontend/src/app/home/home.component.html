@@ -3,6 +3,6 @@
   <button mat-button [routerLink]="'/overview'">Overview</button>
   <span class="example-fill-remaining-space"></span>
 
-  <button mat-button>Logout</button>
+  <button mat-button (click)="onLogout()">Logout</button>
 </mat-toolbar>
 <router-outlet></router-outlet>

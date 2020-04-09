@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {SignupRequest} from "../models/signup-request";
+import {AuthenticationService} from "../services/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -10,15 +13,14 @@ export class SignupComponent implements OnInit {
 
   form: FormGroup;
   public loginInvalid: boolean;
-  private formSubmitAttempt: boolean;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authenticationService: AuthenticationService, private router: Router) {
   }
 
   ngOnInit() {
     this.form = this.fb.group({
       fullName: ['', Validators.required],
-      username: ['', Validators.email],
+      email: ['', Validators.email],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     }, { validator: SignupComponent.passwordMatchValidator });
@@ -35,17 +37,18 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     this.loginInvalid = false;
-    this.formSubmitAttempt = false;
     if (this.form.valid) {
-      try {
-        const username = this.form.get('username').value;
-        const password = this.form.get('password').value;
-        //await this.authService.login(username, password);
-      } catch (err) {
+      let signupRequest: SignupRequest = {
+        email: this.form.get('email').value,
+        password: this.form.get('password').value,
+        name: this.form.get('fullName').value
+      };
+      this.authenticationService.signup(signupRequest).subscribe(() => {
+        this.router.navigateByUrl('/home');
+      }, () => {
         this.loginInvalid = true;
-      }
-    } else {
-      this.formSubmitAttempt = true;
+      });
+
     }
   }
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
+import {AuthenticationService} from "../services/authentication.service";
+import {LoginRequest} from "../models/login-request";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -10,31 +12,29 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class LoginComponent implements OnInit {
   form: FormGroup;
   public loginInvalid: boolean;
-  private formSubmitAttempt: boolean;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authenticationService: AuthenticationService, private router: Router) {
   }
 
   ngOnInit() {
     this.form = this.fb.group({
-      username: ['', Validators.email],
+      email: ['', Validators.email],
       password: ['', Validators.required]
     });
   }
 
   onSubmit() {
     this.loginInvalid = false;
-    this.formSubmitAttempt = false;
     if (this.form.valid) {
-      try {
-        const username = this.form.get('username').value;
-        const password = this.form.get('password').value;
-        //await this.authService.login(username, password);
-      } catch (err) {
+      let loginRequest: LoginRequest = {
+        email: this.form.get('email').value,
+        password: this.form.get('password').value,
+      };
+      this.authenticationService.login(loginRequest).subscribe(() => {
+        this.router.navigateByUrl('/home');
+      }, () => {
         this.loginInvalid = true;
-      }
-    } else {
-      this.formSubmitAttempt = true;
+      })
     }
   }
 }
