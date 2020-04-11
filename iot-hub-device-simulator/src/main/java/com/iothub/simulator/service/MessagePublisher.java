@@ -25,7 +25,7 @@ public class MessagePublisher {
   public void sendStateMessage(StateMessage stateMessage) {
     try {
       String jsonMessage = objectMapper.writeValueAsString(stateMessage);
-      mqttClient.publish("device/" + deviceState.getKey() + "/state", jsonMessage.getBytes(), 1, true);
+      mqttClient.publish("devices/" + deviceState.getKey() + "/state", jsonMessage.getBytes(), 1, true);
     } catch (JsonProcessingException e) {
       log.error("Error serializing state message");
     } catch (MqttException e) {
@@ -36,7 +36,7 @@ public class MessagePublisher {
   public void sendConfigMessage(ConfigMessage configMessage) {
     try {
       String jsonMessage = objectMapper.writeValueAsString(configMessage);
-      mqttClient.publish("device/" + deviceState.getKey() + "/config", jsonMessage.getBytes(), 1, true);
+      mqttClient.publish("devices/" + deviceState.getKey() + "/config", jsonMessage.getBytes(), 1, true);
     } catch (JsonProcessingException e) {
       log.error("Error serializing config message");
     } catch (MqttException e) {

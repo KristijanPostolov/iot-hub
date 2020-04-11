@@ -14,9 +14,11 @@ import com.iothub.model.dto.SignUpRequest;
 import com.iothub.repository.AccountRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AccountService implements UserDetailsService {
 
   private final AccountRepository accountRepository;

@@ -28,9 +28,11 @@ import com.iothub.service.converter.DeviceConverter;
 import com.iothub.service.converter.DeviceParameterConverter;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class DeviceService {
 
   private final DeviceRepository deviceRepository;
@@ -96,6 +98,7 @@ public class DeviceService {
         if (!parameter.getType().name().equals(newParameter.getType().name())) {
           return false;
         }
+        parameter.setActuator(newParameter.isActuator());
       }
     }
     // add new parameters

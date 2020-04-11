@@ -3,19 +3,7 @@ package com.iothub.model;
 import java.time.Instant;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -66,7 +54,7 @@ public class DeviceParameter {
   @JoinColumn(name = "device_id")
   private Device device;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "deviceParameter")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "deviceParameter", cascade = CascadeType.ALL)
   private List<ParameterValue> parameterValues;
 
 }

@@ -12,9 +12,11 @@ import com.iothub.service.converter.AuthorizationService;
 import com.iothub.service.converter.DeviceParameterConverter;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class DeviceParameterService {
 
   private final DeviceParameterRepository deviceParameterRepository;

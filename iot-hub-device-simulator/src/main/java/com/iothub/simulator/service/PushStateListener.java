@@ -26,6 +26,7 @@ public class PushStateListener {
     }
 
     try {
+      log.info("We have received push state message");
       StatePushMessage message = objectMapper.readValue(new String(payload), StatePushMessage.class);
       message.getState().forEach((name, value) -> {
         if (!deviceState.getTypes().containsKey(name)) {

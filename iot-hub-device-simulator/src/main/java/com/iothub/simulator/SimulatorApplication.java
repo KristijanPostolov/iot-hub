@@ -49,7 +49,7 @@ public class SimulatorApplication implements CommandLineRunner {
 
     String key = br.readLine();
     deviceState.setKey(key);
-    mqttClient.subscribe("device/" + key + "/push", (topic, message) ->
+    mqttClient.subscribe("devices/" + key + "/push", (topic, message) ->
         pushStateListener.handlePushStateMessage(topic, message.getPayload()));
 
     while (true) {

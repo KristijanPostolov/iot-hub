@@ -4,6 +4,7 @@
   </div>
   <div class="value-item" *ngIf="parameter.active; else inactiveParameter">
     <span [matTooltip]="lastUpdated" matTooltipPosition="below">{{parameter.lastValue}}</span>
+    <button *ngIf="parameter.actuator" mat-icon-button (click)="editActuator(parameter)"><mat-icon>settings</mat-icon></button>
   </div>
   <ng-template #inactiveParameter>
     <div class="text-muted">
@@ -12,7 +13,6 @@
       </span>
     </div>
   </ng-template>
-  <button *ngIf="parameter.actuator" mat-icon-button (click)="editActuator(parameter)"><mat-icon>settings</mat-icon></button>
   <div class="empty-space"></div>
   <button mat-raised-button color="primary" class="right-button" (click)="openChart()"><mat-icon>show_chart</mat-icon> View chart</button>
 </div>
