@@ -1,5 +1,7 @@
 package com.iothub.service;
 
+import java.time.Instant;
+
 import org.springframework.stereotype.Service;
 
 import com.iothub.exceptions.MissingResourceException;
@@ -26,6 +28,17 @@ public class DeviceParameterService {
     }
     authorizationService.authorize(deviceParameter);
     return deviceParameterConverter.convertToDeviceParameterDetails(deviceParameter);
+  }
+
+  public void updateParameterValue(int id, String newValue) {
+    DeviceParameter deviceParameter = deviceParameterRepository.findById(id);
+    if (deviceParameter == null) {
+      throw new MissingResourceException("A device parameter with id " + id + " does not exist");
+    }
+    authorizationService.authorize(deviceParameter);
+    deviceParameter.setLastValue(newValue);
+    deviceParameter.setLastUpdate(Instant.now());
+    deviceParameterRepository.save(deviceParameter);
   }
 
 }

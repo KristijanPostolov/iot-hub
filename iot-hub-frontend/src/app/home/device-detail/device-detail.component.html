@@ -13,7 +13,7 @@
           State:<status-indicator [status]="device.status" [showText]="true"></status-indicator>
         </mat-list-item>
         <mat-divider></mat-divider>
-        <div *ngIf="device.parameters">
+        <div *ngIf="device.parameters && device.parameters.length">
           <mat-list-item>
             <h2>Current state of parameters</h2>
           </mat-list-item>
@@ -22,7 +22,7 @@
           </mat-list-item>
         </div>
         <mat-divider></mat-divider>
-        <div *ngIf="device.oldParameters">
+        <div *ngIf="device.oldParameters && device.oldParameters.length">
           <mat-list-item>
             <h2>Inactive parameters</h2>
           </mat-list-item>
@@ -32,5 +32,8 @@
         </div>
       </mat-list>
     </div>
+    <button class="refresh-button" color="primary" mat-icon-button (click)="reloadDeviceDetails()">
+      <mat-icon>refresh</mat-icon>
+    </button>
   </mat-card-content>
 </mat-card>

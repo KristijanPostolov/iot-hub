@@ -2,10 +2,17 @@
   <div class="name-item">
     <span [matTooltip]="parameter.type" matTooltipPosition="below">{{parameter.name}}: </span>
   </div>
-  <div class="value-item">
-    <span [matTooltip]="parameter.lastUpdate" matTooltipPosition="below">{{parameter.lastValue}}</span>
+  <div class="value-item" *ngIf="parameter.active; else inactiveParameter">
+    <span [matTooltip]="lastUpdated" matTooltipPosition="below">{{parameter.lastValue}}</span>
   </div>
-  <button *ngIf="parameter.actuator" mat-icon-button class="value-item" (click)="editActuator(parameter)"><mat-icon>settings</mat-icon></button>
+  <ng-template #inactiveParameter>
+    <div class="text-muted">
+      <span>
+        {{parameter.lastValue}} (Last updated: {{lastUpdated}})
+      </span>
+    </div>
+  </ng-template>
+  <button *ngIf="parameter.actuator" mat-icon-button (click)="editActuator(parameter)"><mat-icon>settings</mat-icon></button>
   <div class="empty-space"></div>
-  <button mat-raised-button color="primary" class="right-button"><mat-icon>show_chart</mat-icon> View chart</button>
+  <button mat-raised-button color="primary" class="right-button" (click)="openChart()"><mat-icon>show_chart</mat-icon> View chart</button>
 </div>

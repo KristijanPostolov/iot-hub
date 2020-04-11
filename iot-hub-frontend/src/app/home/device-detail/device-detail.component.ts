@@ -30,4 +30,7 @@ export class DeviceDetailComponent implements OnInit {
     this.snackBar.open('Copied to clipboard', null, {duration: 1000});
   }
 
+  reloadDeviceDetails() {
+    window.location.reload();
+  }
 }

@@ -32,7 +32,12 @@ export class EditActuatorDialogComponent implements OnInit {
   }
 
   update() {
-
+    this.errorMessage = false;
+    this.deviceParameterService.updateActuatorValue(this.parameter.id, this.value).subscribe(() => {
+      this.dialogRef.close(this.value);
+    }, () => {
+      this.errorMessage = true;
+    })
   }
 
   isValueChanged() {
@@ -40,7 +45,7 @@ export class EditActuatorDialogComponent implements OnInit {
   }
 
   toggleValue() {
-    if (this.value === 'true') {
+    if (this.value.toLowerCase() === 'true') {
       this.value = 'false';
     } else {
       this.value = 'true';

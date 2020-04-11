@@ -8,7 +8,7 @@
     </mat-form-field>
 
     <div *ngIf="parameter.type === 'BOOLEAN'" class="toggle-div">
-      <mat-slide-toggle [checked]="value === 'true'" (toggleChange)="toggleValue()"></mat-slide-toggle>
+      <mat-slide-toggle [checked]="value.toLowerCase() === 'true'" (toggleChange)="toggleValue()"></mat-slide-toggle>
       <mat-icon (click)="reset()" *ngIf="isValueChanged()">undo</mat-icon>
     </div>
   </mat-dialog-content>

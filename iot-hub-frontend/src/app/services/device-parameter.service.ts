@@ -13,4 +13,8 @@ export class DeviceParameterService {
   getDeviceParameterDetails(id: number): Observable<DeviceParameter> {
     return this.http.get<DeviceParameter>(`api/parameters/${id}`);
   }
+
+  updateActuatorValue(id: number, newValue: string): Observable<any> {
+    return this.http.post(`api/parameters/${id}`, {newValue: newValue});
+  }
 }

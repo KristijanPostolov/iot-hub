@@ -8,3 +8,8 @@ status-indicator {
   margin: 10px;
 }
 
+.refresh-button {
+  position: absolute;
+  top: 2em;
+  right: 2em;
+}

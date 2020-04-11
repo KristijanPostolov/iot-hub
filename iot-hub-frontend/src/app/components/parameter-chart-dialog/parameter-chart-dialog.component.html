@@ -1,0 +1,11 @@
+<div>
+  <h2 matDialogTitle *ngIf="parameter">{{parameter.name}}</h2>
+  <mat-dialog-content>
+    <div>
+      <canvas id="canvas" width="400px" height="300px">{{ chart }}</canvas>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button (click)="close()">Cancel</button>
+  </mat-dialog-actions>
+</div>

@@ -33,6 +33,7 @@ import { DeviceParameterComponent } from './components/device-parameter/device-p
 import {MatSliderModule} from "@angular/material/slider";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { EditActuatorDialogComponent } from './components/edit-actuator-dialog/edit-actuator-dialog.component';
+import { ParameterChartDialogComponent } from './components/parameter-chart-dialog/parameter-chart-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { EditActuatorDialogComponent } from './components/edit-actuator-dialog/e
     StatusIndicatorComponent,
     DeviceDetailComponent,
     DeviceParameterComponent,
-    EditActuatorDialogComponent
+    EditActuatorDialogComponent,
+    ParameterChartDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -85,6 +87,6 @@ import { EditActuatorDialogComponent } from './components/edit-actuator-dialog/e
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [EditActuatorDialogComponent]
+  entryComponents: [EditActuatorDialogComponent, ParameterChartDialogComponent]
 })
 export class AppModule { }
