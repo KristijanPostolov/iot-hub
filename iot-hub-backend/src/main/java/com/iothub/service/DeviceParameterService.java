@@ -30,7 +30,7 @@ public class DeviceParameterService {
     return deviceParameterConverter.convertToDeviceParameterDetails(deviceParameter);
   }
 
-  public void updateParameterValue(int id, String newValue) {
+  public DeviceParameter updateParameterValue(int id, String newValue) {
     DeviceParameter deviceParameter = deviceParameterRepository.findById(id);
     if (deviceParameter == null) {
       throw new MissingResourceException("A device parameter with id " + id + " does not exist");
@@ -39,6 +39,7 @@ public class DeviceParameterService {
     deviceParameter.setLastValue(newValue);
     deviceParameter.setLastUpdate(Instant.now());
     deviceParameterRepository.save(deviceParameter);
+    return deviceParameter;
   }
 
 }

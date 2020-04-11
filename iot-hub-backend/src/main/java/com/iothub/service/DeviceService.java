@@ -1,15 +1,25 @@
 package com.iothub.service;
 
 import java.security.Principal;
+import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
 import com.iothub.exceptions.MissingResourceException;
+import com.iothub.messages.ConfigMessage;
+import com.iothub.messages.ParameterConfig;
+import com.iothub.messages.StateMessage;
 import com.iothub.model.Account;
 import com.iothub.model.Device;
+import com.iothub.model.DeviceParameter;
 import com.iothub.model.DeviceStatus;
+import com.iothub.model.ParameterType;
+import com.iothub.model.ParameterValue;
 import com.iothub.model.dto.DeviceDto;
 import com.iothub.model.dto.DeviceParameterDto;
 import com.iothub.repository.DeviceRepository;
@@ -18,6 +28,7 @@ import com.iothub.service.converter.DeviceConverter;
 import com.iothub.service.converter.DeviceParameterConverter;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
@@ -58,5 +69,88 @@ public class DeviceService {
 
     device = deviceRepository.save(device);
     return deviceConverter.convertToDto(device);
+  }
+
+  public boolean updateDeviceConfiguration(String id, ConfigMessage configMessage) {
+    Device device = deviceRepository.findBySecretKey(id);
+    if (device == null) {
+      return false;
+    }
+    if (DeviceStatus.INACTIVE.equals(device.getStatus())) {
+      device.setStatus(DeviceStatus.PAIRED);
+    }
+    Instant now = Instant.now();
+    List<DeviceParameter> deviceParameters = device.getDeviceParameters();
+    Map<String, ParameterConfig> newConfig = configMessage.getConfiguration();
+
+    Set<String> existing = new HashSet<>();
+    // check existing parameters
+    for(DeviceParameter parameter : deviceParameters) {
+      ParameterConfig newParameter = newConfig.get(parameter.getName());
+      existing.add(parameter.getName());
+      if (newParameter == null) {
+        // removed
+        parameter.setActive(false);
+        parameter.setEndTimestamp(now);
+      } else {
+        // existing (validate that type is not changed)
+        if (!parameter.getType().name().equals(newParameter.getType().name())) {
+          return false;
+        }
+      }
+    }
+    // add new parameters
+    newConfig.forEach((name, config) -> {
+      if (!existing.contains(name)) {
+        DeviceParameter newParameter = DeviceParameter.builder()
+            .name(name)
+            .type(ParameterType.valueOf(config.getType().name()))
+            .active(true)
+            .actuator(config.isActuator())
+            .startTimestamp(now)
+            .device(device)
+            .build();
+        deviceParameters.add(newParameter);
+      }
+    });
+    device.setDeviceParameters(deviceParameters);
+    deviceRepository.save(device);
+    return true;
+  }
+
+  public boolean updateDeviceState(String id, StateMessage stateMessage) {
+    Device device = deviceRepository.findBySecretKey(id);
+    if (device == null || device.getStatus() == null || DeviceStatus.INACTIVE.equals(device.getStatus())) {
+      return false;
+    }
+    if (DeviceStatus.PAIRED.equals(device.getStatus())) {
+      device.setStatus(DeviceStatus.ACTIVE);
+    }
+
+    Instant timestamp = stateMessage.getTimestamp();
+    Map<String, String> state = stateMessage.getState();
+    int updated = 0;
+    for (DeviceParameter parameter : device.getDeviceParameters()) {
+      if (!parameter.getActive()) {
+        return false;
+      }
+      String newValue = state.get(parameter.getName());
+      if (newValue != null) {
+        ParameterValue parameterValue = ParameterValue.builder()
+            .value(newValue)
+            .timestamp(timestamp)
+            .deviceParameter(parameter)
+            .build();
+        parameter.getParameterValues().add(parameterValue);
+        parameter.setLastValue(newValue);
+        parameter.setLastUpdate(timestamp);
+        updated++;
+      }
+    }
+    if (updated < state.size()) {
+      return false;
+    }
+    deviceRepository.save(device);
+    return true;
   }
 }
