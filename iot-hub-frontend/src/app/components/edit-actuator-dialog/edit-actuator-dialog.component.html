@@ -1,0 +1,20 @@
+<div *ngIf="parameter">
+  <h2 mat-dialog-title>{{parameter.name}}</h2>
+  <mat-dialog-content>
+    <mat-error *ngIf="errorMessage">The value could not be updated</mat-error>
+    <mat-form-field *ngIf="parameter.type === 'INTEGER' || parameter.type === 'REAL'">
+      <input matInput type="number" [(ngModel)]="value">
+      <mat-icon matSuffix (click)="reset()" *ngIf="isValueChanged()">undo</mat-icon>
+    </mat-form-field>
+
+    <div *ngIf="parameter.type === 'BOOLEAN'" class="toggle-div">
+      <mat-slide-toggle [checked]="value === 'true'" (toggleChange)="toggleValue()"></mat-slide-toggle>
+      <mat-icon (click)="reset()" *ngIf="isValueChanged()">undo</mat-icon>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-raised-button (click)="close()">Close</button>
+    <button mat-raised-button color="primary" (click)="update()" [disabled]="!isValueChanged()">Update</button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,31 @@
+<mat-card>
+  <mat-card-content>
+    <form *ngIf="!device" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h2>Create new device</h2>
+      <mat-error *ngIf="responseError">
+        Something went wrong, please try again
+      </mat-error>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Device name" formControlName="name" required>
+        <mat-error>Device name is mandatory</mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <textarea matInput placeholder="Description" formControlName="description"></textarea>
+      </mat-form-field>
+      <button mat-raised-button color="primary">Create</button>
+    </form>
+
+    <div *ngIf="device">
+      <h2 class="text-success">Success</h2>
+      <p >Technical key that your device({{device.name}}) needs to communicate with the system:</p>
+      <span class="text-success">{{device.secretKey}}</span>
+      <span matTooltip="Copy to clipboard" matTooltipPosition="right">
+        <button mat-icon-button (click)="copyToClipboard(device.secretKey)"><mat-icon>file_copy</mat-icon></button>
+      </span>
+    </div>
+    <div class="back-button">
+      <a routerLink="/">Back to My Devices</a>
+    </div>
+
+  </mat-card-content>
+</mat-card>

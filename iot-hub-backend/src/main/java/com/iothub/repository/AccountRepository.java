@@ -9,5 +9,7 @@ import com.iothub.model.Account;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
   Account findByEmail(String email);
+
+  boolean existsAccountByEmail(String email);
   
 }

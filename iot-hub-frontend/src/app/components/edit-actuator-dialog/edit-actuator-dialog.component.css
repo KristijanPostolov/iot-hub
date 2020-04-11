@@ -1,0 +1,12 @@
+:host {
+  text-align: center;
+}
+
+.toggle-div {
+  min-height: 50px;
+  padding: 10px;
+}
+
+.toggle-div mat-slide-toggle {
+  margin-right: 30px;
+}

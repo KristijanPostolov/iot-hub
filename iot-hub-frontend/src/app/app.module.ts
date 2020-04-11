@@ -15,18 +15,37 @@ import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthenticationInterceptor} from "./services/authentication.interceptor";
 import {ErrorInterceptor} from "./services/error.interceptor";
+import { OverviewComponent } from './home/overview/overview.component';
+import { AddDeviceComponent } from './home/add-device/add-device.component';
+import { StatusIndicatorComponent } from './components/status-indicator/status-indicator.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import { DeviceDetailComponent } from './home/device-detail/device-detail.component';
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatListModule} from "@angular/material/list";
+import { DeviceParameterComponent } from './components/device-parameter/device-parameter.component';
+import {MatSliderModule} from "@angular/material/slider";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { EditActuatorDialogComponent } from './components/edit-actuator-dialog/edit-actuator-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    HomeComponent
+    HomeComponent,
+    OverviewComponent,
+    AddDeviceComponent,
+    StatusIndicatorComponent,
+    DeviceDetailComponent,
+    DeviceParameterComponent,
+    EditActuatorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +61,16 @@ import {ErrorInterceptor} from "./services/error.interceptor";
     MatButtonToggleModule,
     ReactiveFormsModule,
     MatInputModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    FormsModule,
+    MatGridListModule,
+    MatDialogModule,
+    MatListModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatDialogModule
   ],
   providers: [
     {
@@ -56,6 +84,7 @@ import {ErrorInterceptor} from "./services/error.interceptor";
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [EditActuatorDialogComponent]
 })
 export class AppModule { }

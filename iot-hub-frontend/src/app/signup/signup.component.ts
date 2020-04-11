@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
 export class SignupComponent implements OnInit {
 
   form: FormGroup;
-  public loginInvalid: boolean;
+  loginInvalid: boolean;
 
   constructor(private fb: FormBuilder, private authenticationService: AuthenticationService, private router: Router) {
   }
@@ -44,7 +44,7 @@ export class SignupComponent implements OnInit {
         name: this.form.get('fullName').value
       };
       this.authenticationService.signup(signupRequest).subscribe(() => {
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/');
       }, () => {
         this.loginInvalid = true;
       });

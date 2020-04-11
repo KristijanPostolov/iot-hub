@@ -1,0 +1,27 @@
+:host {
+  width: 100%;
+  height: fit-content;
+}
+
+.flexbox-container {
+  display: flex;
+  align-items: center;
+}
+
+.name-item {
+  flex: 3 1 0;
+}
+
+.value-item {
+  flex: 1 1 0;
+}
+
+.empty-space {
+  flex: 5 1 0;
+}
+
+.right-button {
+  flex: 2 1 0;
+}
+
+

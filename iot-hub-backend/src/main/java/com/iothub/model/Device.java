@@ -15,11 +15,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "device")
 public class Device {
@@ -29,6 +33,8 @@ public class Device {
   private Integer id;
 
   private String name;
+
+  private String description;
 
   @Column(name = "secret_key", unique = true)
   private String secretKey;

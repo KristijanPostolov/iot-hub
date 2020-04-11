@@ -25,12 +25,24 @@ public class AccountService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     Account account = accountRepository.findByEmail(email);
+    if (account == null) {
+      return null;
+    }
     return new User(email, account.getPassword(), new ArrayList<>());
   }
 
-  public void signUpUser(SignUpRequest signUpRequest) {
+  public Account findByEmail(String email) {
+    return accountRepository.findByEmail(email);
+  }
+
+  public boolean signUpUser(SignUpRequest signUpRequest) {
+    boolean accountAlreadyExists = accountRepository.existsAccountByEmail(signUpRequest.getEmail());
+    if (accountAlreadyExists) {
+      return false;
+    }
     String encodedPassword = passwordEncoder.encode(signUpRequest.getPassword());
     Account account = new Account(signUpRequest.getName(), signUpRequest.getEmail(), encodedPassword);
     accountRepository.save(account);
+    return true;
   }
 }

@@ -1,0 +1,36 @@
+<mat-card>
+  <mat-card-content>
+    <div *ngIf="device">
+      <mat-list>
+        <mat-list-item><h1>Device name: {{device.name}}</h1></mat-list-item>
+        <mat-list-item>
+          Technical id: {{device.secretKey}}
+          <span matTooltip="Copy to clipboard" matTooltipPosition="right">
+            <button mat-icon-button (click)="copyToClipboard(device.secretKey)"><mat-icon>file_copy</mat-icon></button>
+          </span>
+        </mat-list-item>
+        <mat-list-item>
+          State:<status-indicator [status]="device.status" [showText]="true"></status-indicator>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div *ngIf="device.parameters">
+          <mat-list-item>
+            <h2>Current state of parameters</h2>
+          </mat-list-item>
+          <mat-list-item *ngFor="let parameter of device.parameters">
+            <device-parameter [parameter]="parameter"></device-parameter>
+          </mat-list-item>
+        </div>
+        <mat-divider></mat-divider>
+        <div *ngIf="device.oldParameters">
+          <mat-list-item>
+            <h2>Inactive parameters</h2>
+          </mat-list-item>
+          <mat-list-item *ngFor="let parameter of device.oldParameters">
+            <device-parameter [parameter]="parameter"></device-parameter>
+          </mat-list-item>
+        </div>
+      </mat-list>
+    </div>
+  </mat-card-content>
+</mat-card>

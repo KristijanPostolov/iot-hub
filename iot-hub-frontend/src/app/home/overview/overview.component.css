@@ -1,0 +1,42 @@
+.center-align {
+  text-align: center;
+}
+
+mat-card {
+  max-width: 400px;
+  min-height: 130px;
+  margin: 2em auto;
+  text-align: center;
+  cursor: pointer;
+}
+
+mat-card:focus,mat-card-content:focus {
+  outline: none;
+  border: 0;
+}
+
+mat-card h3, mat-card p, mat-card div {
+  text-align: left;
+}
+
+mat-card p {
+  overflow-wrap: break-word;
+}
+
+mat-card status-indicator {
+  position: absolute;
+  top: 1.5em;
+  right: 1.5em;
+}
+
+.with-label button {
+  margin-left: 50px;
+}
+
+.search-field {
+  margin: 10px;
+  min-width: 400px;
+}
+
+
+

@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  public loginInvalid: boolean;
+  loginInvalid: boolean;
 
   constructor(private fb: FormBuilder, private authenticationService: AuthenticationService, private router: Router) {
   }
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
         password: this.form.get('password').value,
       };
       this.authenticationService.login(loginRequest).subscribe(() => {
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/');
       }, () => {
         this.loginInvalid = true;
       })

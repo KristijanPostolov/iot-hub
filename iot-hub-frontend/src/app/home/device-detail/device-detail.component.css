@@ -1,0 +1,10 @@
+mat-card {
+  min-width: 70%;
+  max-width: 70%;
+  margin: 2em auto;
+}
+
+status-indicator {
+  margin: 10px;
+}
+

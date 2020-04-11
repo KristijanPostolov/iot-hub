@@ -1,0 +1,28 @@
+<div class="container center-align">
+  <div *ngIf="!allDevices || allDevices.length === 0; else hasDevices">
+    <h3>Looks like you don't have any devices...</h3>
+    <button mat-raised-button color="primary" routerLink="add">Create Device</button>
+  </div>
+  <ng-template #hasDevices>
+    <mat-form-field class="search-field" appearance="outline">
+      <input matInput placeholder="Search devices..." (keyup)="searchTerm.next($event.target.value)">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <div class="with-label">
+      <span>Create another device</span>
+      <button mat-raised-button color="primary" routerLink="add">Create Device</button>
+    </div>
+  </ng-template>
+
+  <div *ngIf="devices && devices.length">
+    <mat-card *ngFor="let device of devices" [routerLink]="'/device/' + device.id.toString()">
+      <mat-card-content [routerLink]="device.id">
+        <h3>{{device.name}}</h3>
+        <div class="text-muted">Technical id: {{device.secretKey}}</div>
+        <p *ngIf="device.description">Description: {{device.description}}</p>
+        <status-indicator [status]="device.status"></status-indicator>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>

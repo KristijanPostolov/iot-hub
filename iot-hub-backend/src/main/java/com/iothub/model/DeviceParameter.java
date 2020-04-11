@@ -52,6 +52,10 @@ public class DeviceParameter {
   @Column(name = "last_value")
   private String lastValue;
 
+  @Column(name = "last_update")
+  @Convert(converter = InstantConverter.class)
+  private Instant lastUpdate;
+
   @ManyToOne
   @JoinColumn(name = "device_id")
   private Device device;

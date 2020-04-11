@@ -1,0 +1,25 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { EditActuatorDialogComponent } from './edit-actuator-dialog.component';
+
+describe('EditActuatorDialogComponent', () => {
+  let component: EditActuatorDialogComponent;
+  let fixture: ComponentFixture<EditActuatorDialogComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ EditActuatorDialogComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(EditActuatorDialogComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

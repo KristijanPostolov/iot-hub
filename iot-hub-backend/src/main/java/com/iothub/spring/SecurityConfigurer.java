@@ -21,7 +21,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
   private final UserDetailsService userDetailsService;
   private final PasswordEncoder passwordEncoder;
-  private final JwtRequestCookieFilter jwtRequestCookieFilter;
+  private final JwtRequestHeaderFilter jwtRequestHeaderFilter;
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -43,6 +43,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         .and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     http.headers().frameOptions().disable();
-    http.addFilterBefore(jwtRequestCookieFilter, UsernamePasswordAuthenticationFilter.class);
+    http.addFilterBefore(jwtRequestHeaderFilter, UsernamePasswordAuthenticationFilter.class);
   }
 }
