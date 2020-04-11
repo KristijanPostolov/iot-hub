@@ -1,4 +1,4 @@
-package com.iothub.spring;
+package com.iothub.simulator.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -10,12 +10,8 @@ import lombok.Setter;
 @Setter
 @Configuration
 @ConfigurationProperties(prefix = "mqtt")
-public class MqttConfigurationProperties {
-
+public class MqttConnectionProperties {
   private String connectionUrl;
   private Boolean automaticReconnect;
   private Integer connectionTimeout;
-
-  private String clientId;
-
 }

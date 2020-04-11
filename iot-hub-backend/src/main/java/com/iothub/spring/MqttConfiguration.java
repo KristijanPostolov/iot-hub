@@ -21,7 +21,7 @@ public class MqttConfiguration {
 
   @Bean
   public MqttClient mqttClient() throws MqttException {
-    String clientId = UUID.randomUUID().toString();
+    String clientId = configurationProperties.getClientId();
     MqttClient mqttClient = new MqttClient(configurationProperties.getConnectionUrl(), clientId);
 
     MqttConnectOptions options = new MqttConnectOptions();

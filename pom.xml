@@ -23,6 +23,7 @@
         <module>iot-hub-backend</module>
         <module>iot-hub-frontend</module>
         <module>iot-hub-messages</module>
+        <module>iot-hub-device-simulator</module>
     </modules>
 
     <properties>

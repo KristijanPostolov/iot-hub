@@ -28,7 +28,6 @@ import com.iothub.service.converter.DeviceConverter;
 import com.iothub.service.converter.DeviceParameterConverter;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
