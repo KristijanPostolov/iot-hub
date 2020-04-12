@@ -1,21 +1,5 @@
 package com.iothub.simulator;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
-import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-
 import com.iothub.messages.ConfigMessage;
 import com.iothub.messages.ParameterConfig;
 import com.iothub.messages.ParameterType;
@@ -23,8 +7,18 @@ import com.iothub.messages.StateMessage;
 import com.iothub.simulator.service.DeviceState;
 import com.iothub.simulator.service.MessagePublisher;
 import com.iothub.simulator.service.PushStateListener;
-
 import lombok.RequiredArgsConstructor;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootApplication
 @EnableConfigurationProperties

@@ -1,16 +1,12 @@
 package com.iothub.spring;
 
-import java.util.UUID;
-
+import com.iothub.service.messaging.DeviceMessageListener;
+import lombok.RequiredArgsConstructor;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.iothub.service.messaging.DeviceMessageListener;
-
-import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor

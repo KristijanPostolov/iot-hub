@@ -33,6 +33,7 @@ public class PushStateListener {
           log.warn("We received push state for an invalid parameter");
         }
         deviceState.getValues().put(name, value);
+        log.info("Changed value: " + name + " -> " + value);
       });
     } catch (IOException e) {
       log.warn("We received an invalid push state message");

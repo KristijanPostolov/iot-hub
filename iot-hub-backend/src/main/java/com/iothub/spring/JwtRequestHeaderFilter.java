@@ -1,7 +1,6 @@
 package com.iothub.spring;
 
 import java.io.IOException;
-import java.security.SignatureException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

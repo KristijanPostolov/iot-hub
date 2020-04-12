@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.iothub.exceptions.InternalServerException;
 import com.iothub.exceptions.MissingResourceException;
 import com.iothub.exceptions.UnauthorizedException;
 
