@@ -133,11 +133,11 @@ public class DeviceService {
     Map<String, String> state = stateMessage.getState();
     int updated = 0;
     for (DeviceParameter parameter : device.getDeviceParameters()) {
-      if (!parameter.getActive()) {
-        return false;
-      }
       String newValue = state.get(parameter.getName());
       if (newValue != null) {
+        if (!parameter.getActive()) {
+          return false;
+        }
         ParameterValue parameterValue = ParameterValue.builder()
             .value(newValue)
             .timestamp(timestamp)
