@@ -1,8 +1,10 @@
 package com.iothub.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,6 +40,11 @@ public class AuthenticationController {
     LogInRequest logInRequest = new LogInRequest(signUpRequest.getEmail(), signUpRequest.getPassword());
     String jwt = authenticationService.authenticate(logInRequest);
     return ResponseEntity.ok(new LoginResponse(jwt));
+  }
+
+  @GetMapping("/logout")
+  public void logout(@RequestHeader(name = "Authentication") String authenticationHeader) {
+    authenticationService.logout(authenticationHeader);
   }
 
 }

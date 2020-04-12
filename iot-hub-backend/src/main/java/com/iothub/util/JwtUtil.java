@@ -2,6 +2,7 @@ package com.iothub.util;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.UUID;
 import java.util.function.Function;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,10 @@ public class JwtUtil {
   private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = extractAllClaims(token);
     return claimsResolver.apply(claims);
+  }
+
+  public String extractJti(String token) {
+    return extractClaim(token, Claims::getId);
   }
 
   public String extractUsername(String token) {
@@ -39,6 +44,7 @@ public class JwtUtil {
 
   public String generateToken(UserDetails userDetails) {
     return Jwts.builder()
+        .setId(UUID.randomUUID().toString())
         .setClaims(new HashMap<>())
         .setSubject(userDetails.getUsername())
         .setIssuedAt(new Date(System.currentTimeMillis()))

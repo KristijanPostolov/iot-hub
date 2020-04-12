@@ -24,7 +24,7 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('jwt_token');
-    // todo: backend token blacklisting
+    return this.http.get("/api/logout").subscribe(() => {});
   }
 
   saveJwtToLocalStorage = response => {

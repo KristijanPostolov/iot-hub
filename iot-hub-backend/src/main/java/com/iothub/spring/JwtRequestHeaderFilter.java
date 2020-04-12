@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.iothub.repository.JwtBlacklistRepository;
 import com.iothub.util.JwtUtil;
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -28,6 +29,7 @@ public class JwtRequestHeaderFilter extends OncePerRequestFilter {
 
   private final UserDetailsService userDetailsService;
   private final JwtUtil jwtUtil;
+  private final JwtBlacklistRepository jwtBlacklistRepository;
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -44,7 +46,8 @@ public class JwtRequestHeaderFilter extends OncePerRequestFilter {
 
       if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        if (jwtUtil.validateToken(jwt, userDetails)) {
+        String jti = jwtUtil.extractJti(jwt);
+        if (jwtUtil.validateToken(jwt, userDetails) && !jwtBlacklistRepository.existsById(jti)) {
           UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
               new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
           usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
