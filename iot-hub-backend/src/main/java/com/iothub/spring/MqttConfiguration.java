@@ -23,13 +23,13 @@ public class MqttConfiguration {
     MqttConnectOptions options = new MqttConnectOptions();
     options.setAutomaticReconnect(configurationProperties.getAutomaticReconnect());
     options.setConnectionTimeout(configurationProperties.getConnectionTimeout());
-    mqttClient.connect(options);
-    mqttClient.subscribe("devices/+/config", (topic, mqttMessage) -> {
-      deviceMessageListener.handleConfigMessage(topic, mqttMessage.getPayload());
-    });
-    mqttClient.subscribe("devices/+/state", (topic, mqttMessage) -> {
-      deviceMessageListener.handleStateMessage(topic, mqttMessage.getPayload());
-    });
+    if (configurationProperties.isEnabled()) {
+      mqttClient.connect(options);
+      mqttClient.subscribe("devices/+/config", (topic, mqttMessage) ->
+          deviceMessageListener.handleConfigMessage(topic, mqttMessage.getPayload()));
+      mqttClient.subscribe("devices/+/state", (topic, mqttMessage) ->
+          deviceMessageListener.handleStateMessage(topic, mqttMessage.getPayload()));
+    }
     return mqttClient;
   }
 

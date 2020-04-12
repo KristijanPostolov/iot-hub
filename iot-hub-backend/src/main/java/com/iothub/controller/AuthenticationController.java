@@ -43,7 +43,7 @@ public class AuthenticationController {
   }
 
   @GetMapping("/logout")
-  public void logout(@RequestHeader(name = "Authentication") String authenticationHeader) {
+  public void logout(@RequestHeader(name = "Authorization") String authenticationHeader) {
     authenticationService.logout(authenticationHeader);
   }
 

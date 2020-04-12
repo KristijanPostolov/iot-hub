@@ -47,7 +47,8 @@ public class JwtRequestHeaderFilter extends OncePerRequestFilter {
       if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         String jti = jwtUtil.extractJti(jwt);
-        if (jwtUtil.validateToken(jwt, userDetails) && !jwtBlacklistRepository.existsById(jti)) {
+        boolean validJti = jti != null && !jwtBlacklistRepository.existsById(jti);
+        if (jwtUtil.validateToken(jwt, userDetails) && validJti) {
           UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
               new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
           usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

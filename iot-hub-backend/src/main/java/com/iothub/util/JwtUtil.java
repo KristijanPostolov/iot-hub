@@ -38,14 +38,13 @@ public class JwtUtil {
     return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
   }
 
-  private boolean isTokenExpired(String token) {
+  public boolean isTokenExpired(String token) {
     return extractExpiration(token).before(new Date());
   }
 
   public String generateToken(UserDetails userDetails) {
     return Jwts.builder()
         .setId(UUID.randomUUID().toString())
-        .setClaims(new HashMap<>())
         .setSubject(userDetails.getUsername())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour

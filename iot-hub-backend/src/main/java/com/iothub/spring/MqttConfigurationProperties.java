@@ -12,6 +12,7 @@ import lombok.Setter;
 @ConfigurationProperties(prefix = "mqtt")
 public class MqttConfigurationProperties {
 
+  private boolean enabled;
   private String connectionUrl;
   private Boolean automaticReconnect;
   private Integer connectionTimeout;

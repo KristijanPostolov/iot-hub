@@ -37,10 +37,12 @@ public class AuthenticationService {
 
   public void logout(String authenticationHeader) {
     String jwt = authenticationHeader.substring(7);
-    String jti = jwtUtil.extractJti(jwt);
-    Date date = jwtUtil.extractExpiration(jwt);
-    JwtBlacklist jwtBlacklist = new JwtBlacklist(jti, date.toInstant());
-    jwtBlacklistRepository.save(jwtBlacklist);
+    if (!jwtUtil.isTokenExpired(jwt))  {
+      String jti = jwtUtil.extractJti(jwt);
+      Date date = jwtUtil.extractExpiration(jwt);
+      JwtBlacklist jwtBlacklist = new JwtBlacklist(jti, date.toInstant());
+      jwtBlacklistRepository.save(jwtBlacklist);
+    }
   }
 
 }

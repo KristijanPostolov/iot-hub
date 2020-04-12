@@ -2,6 +2,8 @@ package com.iothub.spring;
 
 import java.time.Instant;
 
+import javax.transaction.Transactional;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -11,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
+@Transactional
 public class JwtBlacklistCleanupTask {
 
   private final JwtBlacklistRepository jwtBlacklistRepository;

@@ -23,8 +23,9 @@ export class AuthenticationService {
   }
 
   logout() {
-    localStorage.removeItem('jwt_token');
-    return this.http.get("/api/logout").subscribe(() => {});
+    return this.http.get("/api/logout").subscribe(() => {
+      localStorage.removeItem('jwt_token');
+    });
   }
 
   saveJwtToLocalStorage = response => {
